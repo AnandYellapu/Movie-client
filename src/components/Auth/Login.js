@@ -14,7 +14,7 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:1001/api/auth/login', formData);
+      const response = await axios.post('https://movie-server-7ora.onrender.com/api/auth/login', formData);
 
       // Store token in local storage or session storage
       localStorage.setItem('token', response.data.token);
