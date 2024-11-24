@@ -14,7 +14,7 @@ const Register = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:1001/api/auth/register', formData);
+      const response = await axios.post('https://movie-server-7ora.onrender.com/api/auth/register', formData);
       setMessage(response.data.message);
 
       if (response.status === 201) {
