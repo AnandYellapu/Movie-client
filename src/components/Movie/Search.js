@@ -10,7 +10,7 @@ const Search = ({ setMovies }) => {
     if (e) e.preventDefault();
     try {
       const response = await axios.get(
-        `http://www.omdbapi.com/?apikey=195bb770&s=${query}&page=${page}`
+        `https://www.omdbapi.com/?apikey=195bb770&s=${query}&page=${page}`
       );
 
       if (response.data.Search) {
