@@ -1,34 +1,36 @@
-/* Header Container */
+/* General header styling */
 .header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 10px 20px;
-  background-color: #1e272e; /* Dark background */
-  color: #ffffff; /* Light text color */
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  padding: 15px 30px;
+  background: linear-gradient(45deg, #1e3c72, #2a5298); /* Gradient background */
+  color: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   position: sticky;
   top: 0;
   z-index: 1000;
 }
 
-/* Logo and Title */
-.logo {
-  font-family: 'Roboto', sans-serif;
-  font-size: 1.5rem;
-  font-weight: bold;
-}
-
-.title {
+/* Logo styling */
+.logo .title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #ffcb05; /* Bright yellow for logo highlight */
   margin: 0;
-  color: #f9ca24; /* Highlight color */
-  text-transform: uppercase;
-  letter-spacing: 2px;
+  font-family: 'Poppins', sans-serif;
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3); /* Text shadow for depth */
+  transition: transform 0.3s ease;
 }
 
-/* Navbar */
+.logo .title:hover {
+  transform: scale(1.1); /* Subtle zoom on hover */
+}
+
+/* Navbar styling */
 .navbar {
   display: flex;
+  align-items: center;
 }
 
 .nav-list {
@@ -36,42 +38,80 @@
   list-style: none;
   margin: 0;
   padding: 0;
+  gap: 15px; /* Space between items */
 }
 
 .nav-item {
-  margin: 0 10px;
+  position: relative;
 }
 
-/* Links */
 .nav-link {
   text-decoration: none;
+  color: #fff;
   font-size: 1rem;
-  color: #ffffff;
-  transition: color 0.3s ease, transform 0.2s ease;
+  padding: 10px 15px;
+  border-radius: 25px;
+  font-family: 'Roboto', sans-serif;
+  transition: background 0.3s, transform 0.3s;
+  display: flex;
+  align-items: center;
 }
 
-/* Hover Effect */
 .nav-link:hover {
-  color: #f9ca24; /* Highlight color on hover */
-  transform: scale(1.1); /* Slight zoom */
+  background: rgba(255, 203, 5, 0.8);
+  color: #1e3c72;
+  transform: translateY(-3px);
+  box-shadow: 0 4px 10px rgba(255, 203, 5, 0.5);
 }
 
-/* Active State */
-.nav-link:active {
-  color: #ffbe76; /* Slightly darker highlight */
-  transform: scale(1.05);
+/* Active nav item indicator */
+.nav-item::after {
+  content: '';
+  position: absolute;
+  bottom: -5px;
+  left: 50%;
+  width: 0;
+  height: 3px;
+  transition: width 0.3s, left 0.3s;
 }
 
-/* Responsive Design */
+.nav-item:hover::after {
+  width: 100%;
+  left: 0;
+}
+
+/* Logout button styling */
+.logout-button {
+  background: none;
+  border: 2px solid rgba(255, 203, 5, 0.8); /* Border to match theme */
+  color: #fff;
+  font-size: 1rem;
+  cursor: pointer;
+  padding: 10px 20px;
+  border-radius: 25px;
+  transition: all 0.3s ease-in-out;
+}
+
+.logout-button:hover {
+  background: #f44336; /* Red background on hover */
+  border-color: #f44336;
+  color: #fff;
+  transform: scale(1.1);
+  box-shadow: 0 4px 10px rgba(244, 67, 54, 0.5); /* Red glow */
+}
+
+/* Responsive design */
 @media (max-width: 768px) {
   .header {
     flex-direction: column;
-    align-items: flex-start;
-    padding: 15px;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
   }
 
-  .logo {
-    margin-bottom: 10px;
+  .navbar {
+    margin-top: 10px;
+    flex-direction: column;
   }
 
   .nav-list {
@@ -79,10 +119,21 @@
     gap: 10px;
   }
 
-  .nav-item {
-    margin: 0;
+  .nav-link {
+    padding: 8px 12px;
   }
 }
+
+@media (max-width: 480px) {
+  .logo .title {
+    font-size: 1.5rem; /* Smaller logo size for very small screens */
+  }
+
+  .nav-link {
+    font-size: 0.9rem;
+  }
+}
+
 
 
 
@@ -525,7 +576,7 @@
 
 /* Footer styles */
 .footer {
-  background-color: #333;
+  background: linear-gradient(45deg, #1e3c72, #2a5298);
   color: #fff;
   text-align: center;
   padding: 1rem;
@@ -811,7 +862,7 @@ a:hover {
   width: 100%;
   max-width: 450px;
   margin: 0 auto;
-  padding: 40px;
+  padding: 90px;
   background-color: #fff;
   border-radius: 10px;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
@@ -939,7 +990,7 @@ a:hover {
   width: 100%;
   max-width: 400px;
   margin: 0 auto;
-  padding: 40px;
+  padding: 90px;
   background-color: #fff;
   border-radius: 10px;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
