@@ -9,48 +9,62 @@ const MovieDetails = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  useEffect(() => {
-    const fetchMovieDetails = async () => {
-      try {
-        setLoading(true);
-        const response = await axios.get(
-          `https://www.omdbapi.com/?apikey=195bb770&i=${id}`
-        );
-        setMovie(response.data);
-        setLoading(false);
-      } catch (err) {
-        console.error("Error fetching movie details:", err);
-        setError("Failed to fetch movie details. Please try again later.");
-        setLoading(false);
-      }
-    };
+  const fetchMovieDetails = async () => {
+    try {
+      setLoading(true);
+      setError(null); // Reset error state
+      const response = await axios.get(
+        `https://www.omdbapi.com/?apikey=195bb770&i=${id}`
+      );
 
+      if (response.data.Response === "False") {
+        throw new Error(response.data.Error || "Movie not found");
+      }
+
+      setMovie(response.data);
+      setLoading(false);
+    } catch (err) {
+      console.error("Error fetching movie details:", err);
+      setError(err.message || "Failed to fetch movie details. Please try again later.");
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
     fetchMovieDetails();
-  }, [id]);
+  }, [id]);   //eslint-disable-line
 
   if (loading) return <p>Loading...</p>;
-  if (error) return <p className="error">{error}</p>;
+  if (error)
+    return (
+      <div className="error">
+        <p>{error}</p>
+        <button onClick={fetchMovieDetails} className="retry-button">
+          Retry
+        </button>
+      </div>
+    );
 
   return (
     <div className="movie-details">
-      <h1>{movie.Title}</h1>
+      <h1>{movie?.Title || "Unknown Title"}</h1>
       <div className="movie-details-container">
         <img
-          src={movie.Poster !== "N/A" ? movie.Poster : "/placeholder-image.jpg"}
-          alt={movie.Title}
+          src={movie?.Poster !== "N/A" ? movie.Poster : "/placeholder-image.jpg"}
+          alt={movie?.Title || "Movie Poster"}
           className="movie-poster"
         />
         <div className="movie-info">
-          <p><strong>Year:</strong> {movie.Year}</p>
-          <p><strong>Genre:</strong> {movie.Genre}</p>
-          <p><strong>Director:</strong> {movie.Director}</p>
-          <p><strong>Actors:</strong> {movie.Actors}</p>
-          <p><strong>Plot:</strong> {movie.Plot}</p>
-          <p><strong>Runtime:</strong> {movie.Runtime}</p>
+          <p><strong>Year:</strong> {movie?.Year || "N/A"}</p>
+          <p><strong>Genre:</strong> {movie?.Genre || "N/A"}</p>
+          <p><strong>Director:</strong> {movie?.Director || "N/A"}</p>
+          <p><strong>Actors:</strong> {movie?.Actors || "N/A"}</p>
+          <p><strong>Plot:</strong> {movie?.Plot || "No plot available"}</p>
+          <p><strong>Runtime:</strong> {movie?.Runtime || "N/A"}</p>
         </div>
       </div>
       {/* Add to Favorites Button */}
-      <Favorites movie={movie} />
+      {movie && <Favorites movie={movie} />}
     </div>
   );
 };
